@@ -2,14 +2,14 @@
 
 This guide walks you through deploying the Zombie Survival Simulator to PythonAnywhere.
 
-**Your account:** https://www.pythonanywhere.com/user/trueloveai/
-**Your live URL (after setup):** https://trueloveai.pythonanywhere.com/
+**Your account:** https://www.pythonanywhere.com/user/zombieai/
+**Your live URL (after setup):** https://zombieai.pythonanywhere.com/
 
 ---
 
 ## ✅ Prerequisites
 
-- A free or paid PythonAnywhere account (you have: `trueloveai`)
+- A free or paid PythonAnywhere account (you have: `zombieai`)
 - The latest code pushed to GitHub: https://github.com/Richard-Johnson-Anglican-College/12SE_Zombie_Survivor_Simulator
 
 ---
@@ -18,7 +18,7 @@ This guide walks you through deploying the Zombie Survival Simulator to PythonAn
 
 ### **Step 1: Open a Bash Console**
 
-1. Go to https://www.pythonanywhere.com/user/trueloveai/
+1. Go to https://www.pythonanywhere.com/user/zombieai/
 2. Click **"Consoles"** tab → click **"Bash"** under "New console"
 
 ### **Step 2: Clone the Repository**
@@ -34,10 +34,10 @@ cd 12SE_Zombie_Survivor_Simulator
 ### **Step 3: Create a Virtual Environment** ⚡ Fast Method
 
 ```bash
-mkvirtualenv --python=/usr/bin/python3.13 --system-site-packages trueloveai-venv
+mkvirtualenv --python=/usr/bin/python3.13 --system-site-packages zombieai-venv
 ```
 
-This activates automatically. Your prompt will now show `(trueloveai-venv)`.
+This activates automatically. Your prompt will now show `(zombieai-venv)`.
 
 > **💡 Why `--system-site-packages`?**
 > PythonAnywhere already has the exact versions of `numpy`, `pandas`, `matplotlib`, and `scikit-learn` that we need (verified pre-installed in `/usr/lib/python3.13/site-packages`). This flag inherits them, so you skip ~10-20 minutes of slow source compilation on the free tier.
@@ -74,7 +74,7 @@ sklearn: 1.6.0
 
 1. Go to the **"Web"** tab on the PythonAnywhere dashboard
 2. Click **"Add a new web app"**
-3. Click **"Next"** (the domain `trueloveai.pythonanywhere.com` is auto-selected)
+3. Click **"Next"** (the domain `zombieai.pythonanywhere.com` is auto-selected)
 4. Choose **"Manual configuration"** (NOT Flask — we'll configure it manually for control)
 5. Choose **"Python 3.13"**
 6. Click **"Next"** to confirm
@@ -85,23 +85,23 @@ You'll now be on the configuration page. Set these values:
 
 #### **Source code:**
 ```
-/home/trueloveai/12SE_Zombie_Survivor_Simulator
+/home/zombieai/12SE_Zombie_Survivor_Simulator
 ```
 
 #### **Working directory:**
 ```
-/home/trueloveai/12SE_Zombie_Survivor_Simulator
+/home/zombieai/12SE_Zombie_Survivor_Simulator
 ```
 
 #### **Virtualenv:**
 ```
-/home/trueloveai/.virtualenvs/trueloveai-venv
+/home/zombieai/.virtualenvs/zombieai-venv
 ```
 
 ### **Step 7: Edit the WSGI File**
 
 1. On the Web tab, find the **"Code"** section
-2. Click the WSGI configuration file link (looks like `/var/www/trueloveai_pythonanywhere_com_wsgi.py`)
+2. Click the WSGI configuration file link (looks like `/var/www/zombieai_pythonanywhere_com_wsgi.py`)
 3. **Delete everything** in that file
 4. Replace with this:
 
@@ -109,7 +109,7 @@ You'll now be on the configuration page. Set these values:
 import sys
 
 # Add project directory to Python path
-project_home = '/home/trueloveai/12SE_Zombie_Survivor_Simulator'
+project_home = '/home/zombieai/12SE_Zombie_Survivor_Simulator'
 if project_home not in sys.path:
     sys.path.insert(0, project_home)
 
@@ -163,17 +163,17 @@ On the Web tab, scroll to **"Static files"** section and add:
 
 | URL | Directory |
 |-----|-----------|
-| `/static/` | `/home/trueloveai/12SE_Zombie_Survivor_Simulator/static/` |
+| `/static/` | `/home/zombieai/12SE_Zombie_Survivor_Simulator/static/` |
 
 Click **"Add a new static file mapping"** if there's no row, then enter the values.
 
 ### **Step 9: Reload Your Web App**
 
-Scroll to the top of the Web tab and click the big green **"Reload trueloveai.pythonanywhere.com"** button.
+Scroll to the top of the Web tab and click the big green **"Reload zombieai.pythonanywhere.com"** button.
 
 ### **Step 10: Visit Your Site!** 🎉
 
-Open: https://trueloveai.pythonanywhere.com/
+Open: https://zombieai.pythonanywhere.com/
 
 You should see the Zombie Survival Simulator running live!
 
@@ -207,16 +207,16 @@ git pull
 Two ways to reload:
 
 **Option A: From the Web tab** (easier)
-- Go to https://www.pythonanywhere.com/user/trueloveai/webapps/
-- Click the green **"Reload trueloveai.pythonanywhere.com"** button
+- Go to https://www.pythonanywhere.com/user/zombieai/webapps/
+- Click the green **"Reload zombieai.pythonanywhere.com"** button
 
 **Option B: From Bash** (faster)
 ```bash
-touch /var/www/trueloveai_pythonanywhere_com_wsgi.py
+touch /var/www/zombieai_pythonanywhere_com_wsgi.py
 ```
 This "touches" the WSGI file, triggering an auto-reload.
 
-✅ That's it! Your changes are now live at https://trueloveai.pythonanywhere.com/
+✅ That's it! Your changes are now live at https://zombieai.pythonanywhere.com/
 
 ---
 
@@ -227,7 +227,7 @@ This "touches" the WSGI file, triggering an auto-reload.
 Add a `pip install` step:
 
 ```bash
-workon trueloveai-venv
+workon zombieai-venv
 cd ~/12SE_Zombie_Survivor_Simulator
 git pull
 pip install -r requirements.txt
@@ -245,7 +245,7 @@ git pull
 Then reload. Done.
 
 **Option 2: Retrain on PythonAnywhere** (cleaner)
-- Visit https://trueloveai.pythonanywhere.com/admin
+- Visit https://zombieai.pythonanywhere.com/admin
 - Click **"🔄 Retrain Models"** button
 - Done — no Bash needed
 
@@ -260,7 +260,7 @@ Then reload. Done.
 Your magic deployment command — run this on PythonAnywhere Bash after every `git push`:
 
 ```bash
-cd ~/12SE_Zombie_Survivor_Simulator && git pull && touch /var/www/trueloveai_pythonanywhere_com_wsgi.py
+cd ~/12SE_Zombie_Survivor_Simulator && git pull && touch /var/www/zombieai_pythonanywhere_com_wsgi.py
 ```
 
 #### **What each part does**
@@ -280,7 +280,7 @@ The `&&` chaining is clever — if `git pull` fails (e.g. merge conflict), it **
 If you added/removed packages locally, add a `pip install` step:
 
 ```bash
-cd ~/12SE_Zombie_Survivor_Simulator && git pull && pip install --user -r requirements.txt && touch /var/www/trueloveai_pythonanywhere_com_wsgi.py
+cd ~/12SE_Zombie_Survivor_Simulator && git pull && pip install --user -r requirements.txt && touch /var/www/zombieai_pythonanywhere_com_wsgi.py
 ```
 
 #### **💡 Pro Tip: Make It a Bash Alias**
@@ -288,7 +288,7 @@ cd ~/12SE_Zombie_Survivor_Simulator && git pull && pip install --user -r require
 Tired of typing the long command? Set up a `deploy` alias once:
 
 ```bash
-echo "alias deploy='cd ~/12SE_Zombie_Survivor_Simulator && git pull && touch /var/www/trueloveai_pythonanywhere_com_wsgi.py'" >> ~/.bashrc
+echo "alias deploy='cd ~/12SE_Zombie_Survivor_Simulator && git pull && touch /var/www/zombieai_pythonanywhere_com_wsgi.py'" >> ~/.bashrc
 source ~/.bashrc
 ```
 
@@ -306,11 +306,11 @@ Done. ⚡ Saves seconds every deploy.
 
 | Scenario | Command |
 |----------|---------|
-| **Code/HTML/CSS change** | `cd ~/12SE_Zombie_Survivor_Simulator && git pull && touch /var/www/trueloveai_pythonanywhere_com_wsgi.py` |
+| **Code/HTML/CSS change** | `cd ~/12SE_Zombie_Survivor_Simulator && git pull && touch /var/www/zombieai_pythonanywhere_com_wsgi.py` |
 | **Added a new package** | Same as above + `pip install --user -r requirements.txt` between pull and touch |
 | **Changed `data.csv`** | Run deploy command, then click "🔄 Retrain Models" on `/admin` |
 | **Updated `models.pkl` locally** | Run deploy command (pickle is in repo) |
-| **Changed `config.py` (API key only)** | Just `touch /var/www/trueloveai_pythonanywhere_com_wsgi.py` — no `git pull` needed (config.py is local-only) |
+| **Changed `config.py` (API key only)** | Just `touch /var/www/zombieai_pythonanywhere_com_wsgi.py` — no `git pull` needed (config.py is local-only) |
 
 ---
 
@@ -330,7 +330,7 @@ Common fixes:
 
 ### **CSS/styling not loading**
 
-- Check Static Files mapping is set: `/static/` → `/home/trueloveai/12SE_Zombie_Survivor_Simulator/static/`
+- Check Static Files mapping is set: `/static/` → `/home/zombieai/12SE_Zombie_Survivor_Simulator/static/`
 - Reload web app
 
 ### **Changes not appearing**
@@ -350,8 +350,8 @@ This means pip is trying to **compile pandas/numpy from source** — very slow o
 
 ```bash
 deactivate
-rmvirtualenv trueloveai-venv   # or: rm -rf ~/.virtualenvs/trueloveai-venv (faster)
-mkvirtualenv --python=/usr/bin/python3.13 --system-site-packages trueloveai-venv
+rmvirtualenv zombieai-venv   # or: rm -rf ~/.virtualenvs/zombieai-venv (faster)
+mkvirtualenv --python=/usr/bin/python3.13 --system-site-packages zombieai-venv
 cd ~/12SE_Zombie_Survivor_Simulator
 pip install Flask==3.0.3
 ```
@@ -363,7 +363,7 @@ This inherits PythonAnywhere's pre-built numpy/pandas/matplotlib/scikit-learn �
 Use the admin dashboard's **"🔄 Retrain Models"** button, or run in Bash:
 
 ```bash
-workon trueloveai-venv
+workon zombieai-venv
 cd ~/12SE_Zombie_Survivor_Simulator
 python -c "from ml_engine import ZombieSurvivalPredictor; p = ZombieSurvivalPredictor(); p.train(); p.save_models()"
 ```
@@ -402,7 +402,7 @@ All pinned in `requirements.txt`.
 **Free tier limits:**
 - 1 web app
 - 512 MB disk space (plenty for this project)
-- Custom domain not supported (must use `trueloveai.pythonanywhere.com`)
+- Custom domain not supported (must use `zombieai.pythonanywhere.com`)
 - App goes to sleep after 3 months of inactivity (just log in to keep it active)
 
 **Paid tier perks (if needed):**
@@ -421,7 +421,7 @@ For this educational project, **free tier is perfect**.
 lsvirtualenv
 
 # Switch to a virtualenv
-workon trueloveai-venv
+workon zombieai-venv
 
 # Deactivate virtualenv
 deactivate
@@ -433,7 +433,7 @@ python --version
 pip list
 
 # Disk usage
-du -sh ~/12SE_True_Love_AI
+du -sh ~/12SE_Zombie_Survivor_Simulator
 ```
 
 ---
@@ -441,9 +441,9 @@ du -sh ~/12SE_True_Love_AI
 ## 🎯 Quick Reference Card
 
 **Your URLs:**
-- Live site: https://trueloveai.pythonanywhere.com/
-- Admin dashboard: https://trueloveai.pythonanywhere.com/admin
-- Dashboard: https://www.pythonanywhere.com/user/trueloveai/
+- Live site: https://zombieai.pythonanywhere.com/
+- Admin dashboard: https://zombieai.pythonanywhere.com/admin
+- Dashboard: https://www.pythonanywhere.com/user/zombieai/
 
 **Update workflow:**
 1. Edit code locally → commit → push to GitHub

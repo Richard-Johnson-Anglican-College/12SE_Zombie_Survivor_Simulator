@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zombie Survival Simulator — Western Sydney 2026</title>
+
+    <!-- Pico CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Roboto+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================
+           Zombie Survival Simulator — Theme
+           ======================================== */
+        :root {
+            --z-green:        #4ade80;
+            --z-green-dim:    #22c55e;
+            --z-green-glow:   rgba(74, 222, 128, 0.25);
+            --z-red:          #ef4444;
+            --z-red-dim:      #dc2626;
+            --z-amber:        #f59e0b;
+            --z-skull:        #fbbf24;
+            --z-bg:           #0f1117;
+            --z-surface:      #181b23;
+            --z-surface-alt:  #1e2230;
+            --z-border:       rgba(74, 222, 128, 0.15);
+            --z-border-bright:rgba(74, 222, 128, 0.35);
+            --z-text:         #e4e4e7;
+            --z-text-dim:     #9ca3af;
+            --z-text-dark:    #6b7280;
+
+            --pico-font-family-sans-serif: 'Inter', system-ui, sans-serif;
+            --pico-primary: var(--z-green);
+            --pico-primary-hover: var(--z-green-dim);
+            --pico-primary-focus: var(--z-green-glow);
+            --pico-primary-inverse: #0f1117;
+            --pico-background-color: var(--z-bg);
+            --pico-color: var(--z-text);
+            --pico-card-background-color: var(--z-surface);
+            --pico-card-border-color: var(--z-border);
+            --pico-form-element-background-color: var(--z-surface-alt);
+            --pico-form-element-border-color: var(--z-border);
+            --pico-form-element-active-border-color: var(--z-green);
+            --pico-form-element-focus-color: var(--z-green-glow);
+            --pico-muted-color: var(--z-text-dim);
+            --pico-border-radius: 0.75rem;
+        }
+
+        body {
+            background: var(--z-bg);
+            min-height: 100vh;
+        }
+
+        /* ---- Hero Image ---- */
+        .hero-image {
+            margin: 0 -1rem 2rem;
+            text-align: center;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 720px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 0 0 1.25rem 1.25rem;
+        }
+
+        /* ---- Typography ---- */
+        .hero-title {
+            font-family: 'Creepster', cursive;
+            text-align: center;
+            font-size: clamp(2.8rem, 9vw, 4.5rem);
+            font-weight: 400;
+            margin: 1.5rem 0 0.25rem;
+            line-height: 1.05;
+            color: var(--z-green);
+            text-shadow: 0 0 40px rgba(74, 222, 128, 0.3), 0 0 80px rgba(74, 222, 128, 0.1);
+            letter-spacing: 0.02em;
+        }
+
+        .hero-subtitle {
+            text-align: center;
+            font-family: 'Roboto Mono', monospace;
+            color: var(--z-text-dim);
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            color: var(--z-text);
+        }
+
+        h3 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        /* ---- Glassmorphism Cards ---- */
+        article {
+            background: var(--z-surface);
+            backdrop-filter: blur(12px);
+            border-radius: 1.25rem;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.03);
+            border: 1px solid var(--z-border);
+        }
+
+        /* ---- Disclaimer ---- */
+        .disclaimer {
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.08), rgba(74, 222, 128, 0.15));
+            border: 1px solid var(--z-border-bright);
+            padding: 1.1rem 1.4rem;
+            border-radius: 0.9rem;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            color: var(--z-text-dim);
+        }
+
+        .disclaimer strong {
+            color: var(--z-green);
+        }
+
+        /* ---- Range Sliders ---- */
+        .range-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .range-group input[type="range"] {
+            flex: 1;
+            margin-bottom: 0;
+            accent-color: var(--z-green);
+        }
+
+        .range-value {
+            min-width: 2.5rem;
+            text-align: center;
+            font-weight: 700;
+            color: var(--z-green);
+            font-size: 1.15rem;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        /* ---- Labels ---- */
+        label {
+            color: var(--z-text);
+            font-weight: 500;
+        }
+
+        /* ---- Feature row with icon ---- */
+        .feature-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.9rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            flex-shrink: 0;
+            border-radius: 0.6rem;
+            margin-top: 0.15rem;
+        }
+
+        .feature-row label {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .label-hint {
+            display: block;
+            font-size: 0.78rem;
+            color: var(--z-text-dark);
+            font-weight: 400;
+            margin-top: 0.15rem;
+        }
+
+        /* ---- Form inputs ---- */
+        input[type="number"] {
+            background: var(--z-surface-alt);
+            border: 1px solid var(--z-border);
+            color: var(--z-text);
+        }
+
+        input[type="number"]:focus {
+            border-color: var(--z-green);
+            box-shadow: 0 0 0 3px var(--z-green-glow);
+        }
+
+        /* ---- Submit Button ---- */
+        button[type="submit"] {
+            background: linear-gradient(135deg, var(--z-green), var(--z-green-dim));
+            border: none;
+            color: #0f1117;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 20px rgba(74, 222, 128, 0.3);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        button[type="submit"]:hover {
+            background: linear-gradient(135deg, var(--z-green-dim), #16a34a);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 28px rgba(74, 222, 128, 0.45);
+        }
+
+        /* ========================================
+           Prediction Result
+           ======================================== */
+        .prediction-result {
+            position: relative;
+            border: 2px solid var(--z-border-bright);
+            box-shadow: 0 8px 40px rgba(74, 222, 128, 0.12);
+        }
+
+        .prediction-header {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .prediction-class-img {
+            width: 220px;
+            height: 220px;
+            flex-shrink: 0;
+            border-radius: 1rem;
+        }
+
+        .prediction-header-text {
+            flex: 1;
+        }
+
+        .prediction-category {
+            font-family: 'Creepster', cursive;
+            font-size: clamp(2rem, 6vw, 2.8rem);
+            font-weight: 400;
+            margin-bottom: 0.25rem;
+            letter-spacing: 0.02em;
+        }
+
+        .prediction-category.apex      { color: var(--z-green); text-shadow: 0 0 30px rgba(74,222,128,0.35); }
+        .prediction-category.scavenger  { color: var(--z-amber); text-shadow: 0 0 30px rgba(245,158,11,0.3); }
+        .prediction-category.bait       { color: #fb923c; text-shadow: 0 0 30px rgba(251,146,60,0.3); }
+        .prediction-category.snack      { color: var(--z-red); text-shadow: 0 0 30px rgba(239,68,68,0.35); }
+
+        .prediction-days {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 1.15rem;
+            color: var(--z-text-dim);
+            margin-bottom: 0;
+        }
+
+        .prediction-days strong {
+            color: var(--z-text);
+            font-size: 1.5rem;
+        }
+
+        /* ---- Explanation Box ---- */
+        .explanation {
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.05), rgba(74, 222, 128, 0.1));
+            padding: 1.75rem;
+            border-radius: 1rem;
+            border-left: 4px solid var(--z-green);
+        }
+
+        .explanation h3 {
+            text-align: center;
+            margin-bottom: 1.25rem;
+            font-size: 1.25rem;
+            color: var(--z-green);
+        }
+
+        .explanation ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .explanation li {
+            padding: 0.4rem 0;
+            line-height: 1.7;
+            color: var(--z-text);
+        }
+
+        .explanation .meta {
+            font-size: 0.88rem;
+            color: var(--z-text-dim);
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .explanation .header-line {
+            font-weight: 700;
+            margin-top: 1rem;
+            color: var(--z-text);
+            font-size: 0.95rem;
+        }
+
+        /* ---- AI Narrator (Radio Dispatch) ---- */
+        .ai-narrator {
+            margin-top: 1.75rem;
+            padding: 1.5rem 1.75rem;
+            background: linear-gradient(135deg, rgba(74,222,128,0.06), rgba(74,222,128,0.12));
+            border: 1.5px solid var(--z-border-bright);
+            border-radius: 1rem;
+            box-shadow: 0 4px 16px rgba(74,222,128,0.1);
+        }
+
+        .ai-narrator-header {
+            margin-bottom: 0.6rem;
+        }
+
+        .ai-narrator-title {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--z-green);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .ai-narrator-body {
+            font-size: 1rem;
+            line-height: 1.75;
+            color: var(--z-text);
+            font-style: italic;
+        }
+
+        .ai-narrator-footer {
+            margin-top: 1rem;
+            padding-top: 0.6rem;
+            border-top: 1px solid var(--z-border);
+            font-size: 0.78rem;
+            color: var(--z-text-dark);
+            text-align: right;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        /* ---- Sparkle (AI) Button ---- */
+        .ai-sparkle-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(74,222,128,0.2), rgba(74,222,128,0.4));
+            border: 2px solid var(--z-border-bright);
+            font-size: 1.4rem;
+            line-height: 1;
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+            box-shadow: 0 4px 16px rgba(74,222,128,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+            animation: radio-pulse 2.5s ease-in-out infinite;
+        }
+
+        .ai-sparkle-btn:hover {
+            transform: scale(1.15) rotate(10deg);
+            background: linear-gradient(135deg, rgba(74,222,128,0.4), rgba(74,222,128,0.6));
+            box-shadow: 0 6px 24px rgba(74,222,128,0.4);
+            animation: none;
+        }
+
+        @keyframes radio-pulse {
+            0%, 100% { box-shadow: 0 4px 16px rgba(74,222,128,0.2); transform: scale(1); }
+            50%      { box-shadow: 0 4px 24px rgba(74,222,128,0.45); transform: scale(1.05); }
+        }
+
+        /* ---- Warnings ---- */
+        .warnings-card {
+            border-left: 4px solid var(--z-red);
+            background: rgba(239,68,68,0.08);
+        }
+
+        .warnings-card strong {
+            color: var(--z-red);
+        }
+
+        /* ---- Nav Link ---- */
+        .nav-link {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+        }
+
+        .nav-link a {
+            color: var(--z-green);
+            font-weight: 500;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .nav-link a:hover {
+            text-decoration: underline;
+            background: rgba(74,222,128,0.08);
+        }
+
+        /* ---- Container ---- */
+        main.container.narrow {
+            max-width: 720px;
+        }
+
+        /* ---- Stat badges (inline) ---- */
+        .stat-badge {
+            display: inline-block;
+            background: var(--z-surface-alt);
+            border: 1px solid var(--z-border);
+            border-radius: 0.4rem;
+            padding: 0.15rem 0.5rem;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--z-green);
+            margin-right: 0.25rem;
+        }
+
+        /* ---- Category tag (prediction) ---- */
+        .category-tag {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 999px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .category-tag.apex     { background: rgba(74,222,128,0.15); color: var(--z-green); border: 1px solid rgba(74,222,128,0.3); }
+        .category-tag.scavenger{ background: rgba(245,158,11,0.15); color: var(--z-amber); border: 1px solid rgba(245,158,11,0.3); }
+        .category-tag.bait     { background: rgba(251,146,60,0.15); color: #fb923c; border: 1px solid rgba(251,146,60,0.3); }
+        .category-tag.snack    { background: rgba(239,68,68,0.15); color: var(--z-red); border: 1px solid rgba(239,68,68,0.3); }
+
+        /* ---- Scanline overlay (subtle CRT effect) ---- */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            z-index: 9999;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.015) 2px,
+                rgba(0, 0, 0, 0.015) 4px
+            );
+        }
+    </style>
+</head>
+<body>
+    <main class="container narrow">
+
+        <div class="hero-image">
+            <img src="../static/images/hero.png" alt="Zombie Survival Simulator — Western Sydney 2026">
+        </div>
+
+        <div class="disclaimer">
+            &#x26A0;&#xFE0F; <strong>Disclaimer:</strong> This is a machine learning demo for Year 12 Software Engineering. It does NOT predict actual zombie survival outcomes. (But if it says 0.8 days&hellip; maybe start running.)
+        </div>
+
+        <!-- ====== FORM ====== -->
+        <article>
+            <header>
+                <h2>&#x1F9DF; Enter Your Survival Stats</h2>
+            </header>
+
+            <form method="POST" action="/predict">
+                <div class="feature-row">
+                    <img src="../static/images/icon_cardio.png" alt="Cardio" class="feature-icon">
+                    <label for="fitness">
+                        Cardio / Fitness (1-10)
+                        <span class="label-hint">Can you outrun the horde?</span>
+                        <div class="range-group">
+                            <input type="range" id="fitness" name="fitness" min="1" max="10" value="5">
+                            <span class="range-value" id="fitness-value">5</span>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="feature-row">
+                    <img src="../static/images/icon_resourcefulness.png" alt="Resourcefulness" class="feature-icon">
+                    <label for="resourcefulness">
+                        Resourcefulness (1-10)
+                        <span class="label-hint">Can you hotwire a car or fix a fence?</span>
+                        <div class="range-group">
+                            <input type="range" id="resourcefulness" name="resourcefulness" min="1" max="10" value="5">
+                            <span class="range-value" id="resourcefulness-value">5</span>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="feature-row">
+                    <img src="../static/images/icon_skills.png" alt="Skills" class="feature-icon">
+                    <label for="specialist_skills">
+                        Specialist Skills (0-15)
+                        <span class="label-hint">First Aid, Carpentry, Mechanical&hellip; (count)</span>
+                        <input type="number" id="specialist_skills" name="specialist_skills" min="0" max="15" value="3">
+                    </label>
+                </div>
+
+                <div class="feature-row">
+                    <img src="../static/images/icon_awareness.png" alt="Awareness" class="feature-icon">
+                    <label for="awareness">
+                        Situational Awareness (0-10)
+                        <span class="label-hint">Are you distracted? High screen time = zombie snack.</span>
+                        <input type="number" id="awareness" name="awareness" min="0" max="10" step="0.5" value="5.0">
+                    </label>
+                </div>
+
+                <div class="feature-row">
+                    <img src="../static/images/icon_scouting.png" alt="Scouting" class="feature-icon">
+                    <label for="scouting_freq">
+                        Scouting Frequency (0-7)
+                        <span class="label-hint">How often you risk leaving the bunker per week.</span>
+                        <input type="number" id="scouting_freq" name="scouting_freq" min="0" max="7" value="3">
+                    </label>
+                </div>
+
+                <div class="feature-row">
+                    <img src="../static/images/icon_leadership.png" alt="Leadership" class="feature-icon">
+                    <label for="leadership">
+                        Leadership / Trust (1-10)
+                        <span class="label-hint">Your ability to build and lead a team.</span>
+                        <div class="range-group">
+                            <input type="range" id="leadership" name="leadership" min="1" max="10" value="5">
+                            <span class="range-value" id="leadership-value">5</span>
+                        </div>
+                    </label>
+                </div>
+
+                <button type="submit">&#x1F52A; Calculate My Survival</button>
+            </form>
+        </article>
+
+        <!-- ====== MOCK PREDICTION: Apex Survivor ====== -->
+        <article class="prediction-result">
+
+            <button type="button" class="ai-sparkle-btn" title="Request Radio Dispatch (AI Narrator)">&#x1F4FB;</button>
+
+            <div class="prediction-header">
+                <img src="../static/images/class_apex.png" alt="Apex Survivor" class="prediction-class-img">
+                <div class="prediction-header-text">
+                    <div class="prediction-days">Survival Clock: <br><strong>310.5 days</strong></div>
+                </div>
+            </div>
+
+            <div class="explanation">
+                <h3>&#x1F52C; Why This Prediction?</h3>
+                <ul>
+                    <li class="meta">Stage 1: Decision Tree classified you as 'Apex Survivor' with 87% confidence</li>
+                    <li class="meta">Stage 2: Polynomial Ridge Regression calculated 310.5 days based on feature interactions</li>
+                    <li class="header-line">&#x2713; Strengths:</li>
+                    <li>&nbsp;&nbsp;&bull; Outstanding cardio (<span class="stat-badge">9/10</span>) &mdash; you can outrun the horde on the M4</li>
+                    <li>&nbsp;&nbsp;&bull; High resourcefulness (<span class="stat-badge">9/10</span>) &mdash; you can hotwire a Hilux and fortify a fence</li>
+                    <li>&nbsp;&nbsp;&bull; Excellent awareness (<span class="stat-badge">9.5/10</span>) &mdash; you saw them coming before anyone else</li>
+                    <li class="header-line">&#x26A0; Watch Out:</li>
+                    <li>&nbsp;&nbsp;&bull; Scouting frequency (<span class="stat-badge">6x/wk</span>) is high &mdash; every run is a risk</li>
+                    <li class="header-line">&#x1F52C; ML Insight:</li>
+                    <li>&nbsp;&nbsp;&bull; The model weighs 'awareness' and 'fitness' most heavily. Your Fitness &times; Resourcefulness synergy bonus pushed days exponentially higher.</li>
+                </ul>
+            </div>
+
+            <!-- AI Narrator (Radio Dispatch) -->
+            <div class="ai-narrator">
+                <div class="ai-narrator-header">
+                    <span class="ai-narrator-title">&#x1F4FB; Radio Dispatch &mdash; Station Minchinbury</span>
+                </div>
+                <div class="ai-narrator-body">
+                    "Static crackles&hellip; This is Station Minchinbury. We've got a live one. 9 out of 10 on cardio, near-perfect awareness, and enough resourcefulness to hotwire every abandoned Kia on Reservoir Road. The AI says 310 days &mdash; that's almost a full year in the wasteland. They've set up camp near Bungarribee Park and they're running supply lines to what's left of Blacktown Westpoint. If you're hearing this&hellip; follow their signal. This one might actually make it. Out."
+                </div>
+                <div class="ai-narrator-footer">&#x1F4E1; Powered by Gemma LLM (gemma-3n-e4b-it) via Gemini API</div>
+            </div>
+        </article>
+
+        <!-- ====== MOCK PREDICTION: Zombie Snack ====== -->
+        <article class="prediction-result">
+
+            <div class="prediction-header">
+                <img src="../static/images/class_snack.png" alt="Zombie Snack" class="prediction-class-img">
+                <div class="prediction-header-text">
+                    <div class="prediction-days">Survival Clock: <br><strong>0.8 days</strong></div>
+                </div>
+            </div>
+
+            <div class="explanation">
+                <h3>&#x1F52C; Why This Prediction?</h3>
+                <ul>
+                    <li class="meta">Stage 1: Decision Tree classified you as 'Zombie Snack' with 94% confidence</li>
+                    <li class="meta">Stage 2: Polynomial Ridge Regression calculated 0.8 days based on feature interactions</li>
+                    <li class="header-line">&#x2713; Strengths:</li>
+                    <li>&nbsp;&nbsp;&bull; High cardio (<span class="stat-badge">8/10</span>) &mdash; you're fast, credit where it's due</li>
+                    <li class="header-line">&#x26A0; Dealbreakers:</li>
+                    <li>&nbsp;&nbsp;&bull; Situational Awareness is catastrophic (<span class="stat-badge">0.5/10</span>) &mdash; the Root Node killed you instantly</li>
+                    <li>&nbsp;&nbsp;&bull; You were scrolling TikTok while a shambler walked up behind you at the Rooty Hill RSL</li>
+                    <li class="header-line">&#x1F52C; ML Insight:</li>
+                    <li>&nbsp;&nbsp;&bull; Awareness &lt; 4.5 triggers the "Hard Split" at the top of the Decision Tree. No other stat can save you. This is Feature Importance in action.</li>
+                </ul>
+            </div>
+
+            <div class="ai-narrator">
+                <div class="ai-narrator-header">
+                    <span class="ai-narrator-title">&#x1F4FB; Radio Dispatch &mdash; Station Minchinbury</span>
+                </div>
+                <div class="ai-narrator-body">
+                    "Radio check&hellip; this is Station Minchinbury. We just lost another one near the M4 off-ramp. Kid had 8 out of 10 Cardio &mdash; could've outrun a cheetah &mdash; but his Situational Awareness was a 0.5. He was caught scrolling Reddit near the Rooty Hill RSL. The clock says he lasted 0.8 days. That's the tax you pay for being a digital ghost in a physical nightmare. Put the phone down or you're just fast-food for the undead. Out."
+                </div>
+                <div class="ai-narrator-footer">&#x1F4E1; Powered by Gemma LLM (gemma-3n-e4b-it) via Gemini API</div>
+            </div>
+        </article>
+
+        <!-- ====== MOCK PREDICTION: Scavenger ====== -->
+        <article class="prediction-result">
+
+            <div class="prediction-header">
+                <img src="../static/images/class_scavenger.png" alt="Scavenger" class="prediction-class-img">
+                <div class="prediction-header-text">
+                    <div class="prediction-days">Survival Clock: <br><strong>62.1 days</strong></div>
+                </div>
+            </div>
+
+            <div class="explanation">
+                <h3>&#x1F52C; Why This Prediction?</h3>
+                <ul>
+                    <li class="meta">Stage 1: Decision Tree classified you as 'Scavenger' with 72% confidence</li>
+                    <li class="meta">Stage 2: Polynomial Ridge Regression calculated 62.1 days based on feature interactions</li>
+                    <li class="header-line">&#x2713; Strengths:</li>
+                    <li>&nbsp;&nbsp;&bull; Decent cardio (<span class="stat-badge">6/10</span>) and solid awareness (<span class="stat-badge">5.5/10</span>)</li>
+                    <li>&nbsp;&nbsp;&bull; Regular scouting (<span class="stat-badge">4x/wk</span>) &mdash; you know where the supplies are</li>
+                    <li class="header-line">&#x26A0; Gaps:</li>
+                    <li>&nbsp;&nbsp;&bull; Leadership is average (<span class="stat-badge">6/10</span>) &mdash; you won't lead the bunker, but they'll want you on every supply run</li>
+                    <li class="header-line">&#x1F52C; ML Insight:</li>
+                    <li>&nbsp;&nbsp;&bull; You passed the Awareness check but lack the Fitness &times; Resourcefulness synergy to hit Apex tier. The polynomial interaction term was moderate.</li>
+                </ul>
+            </div>
+        </article>
+
+        <!-- ====== MOCK PREDICTION: The Bait ====== -->
+        <article class="prediction-result">
+
+            <div class="prediction-header">
+                <img src="../static/images/class_bait.png" alt="The Bait" class="prediction-class-img">
+                <div class="prediction-header-text">
+                    <div class="prediction-days">Survival Clock: <br><strong>12.1 days</strong></div>
+                </div>
+            </div>
+
+            <div class="explanation">
+                <h3>&#x1F52C; Why This Prediction?</h3>
+                <ul>
+                    <li class="meta">Stage 1: Decision Tree classified you as 'The Bait' with 68% confidence</li>
+                    <li class="meta">Stage 2: Polynomial Ridge Regression calculated 12.1 days based on feature interactions</li>
+                    <li class="header-line">&#x2713; Strengths:</li>
+                    <li>&nbsp;&nbsp;&bull; High resourcefulness (<span class="stat-badge">10/10</span>) &mdash; you can fix anything, rewire anything</li>
+                    <li class="header-line">&#x26A0; The Problem:</li>
+                    <li>&nbsp;&nbsp;&bull; Cardio is terrible (<span class="stat-badge">2/10</span>) &mdash; you tripped over a bin near the M7 interchange</li>
+                    <li>&nbsp;&nbsp;&bull; Low awareness (<span class="stat-badge">2.5/10</span>) &mdash; you're the person in the movie who accidentally kicks a trash can</li>
+                    <li class="header-line">&#x1F52C; ML Insight:</li>
+                    <li>&nbsp;&nbsp;&bull; The Ridge penalty ("Reality Check") dragged your days down hard. High skills can't compensate for the Fitness &times; Awareness "Friction" the polynomial model detected.</li>
+                </ul>
+            </div>
+        </article>
+
+        <nav class="nav-link">
+            <a href="#">&#x1F9E0; Admin Dashboard &rarr;</a>
+        </nav>
+    </main>
+
+    <script>
+        // Live range slider values
+        const sliders = [
+            { input: 'fitness', display: 'fitness-value' },
+            { input: 'resourcefulness', display: 'resourcefulness-value' },
+            { input: 'leadership', display: 'leadership-value' }
+        ];
+
+        sliders.forEach(s => {
+            const input = document.getElementById(s.input);
+            const display = document.getElementById(s.display);
+            if (input && display) {
+                input.addEventListener('input', e => { display.textContent = e.target.value; });
+            }
+        });
+    </script>
+</body>
+</html>

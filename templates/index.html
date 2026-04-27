@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zombie Survival Simulator &mdash; Western Sydney 2026</title>
+
+    <!-- Pico CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Road+Rage&family=Roboto+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom brand styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <main class="container narrow">
+
+        <div class="hero-image">
+            <img src="{{ url_for('static', filename='images/hero.png') }}" alt="Zombie Survival Simulator &mdash; Western Sydney 2026">
+        </div>
+
+        <div class="disclaimer">
+            &#x26A0;&#xFE0F; <strong>Disclaimer:</strong> This is a machine learning demo for Year 12 Software Engineering. It does NOT predict actual zombie survival outcomes. (But if it says 0.8 days&hellip; maybe start running.)
+        </div>
+
+        {% if error %}
+        <article class="warnings-card">
+            <p><strong>Error:</strong> {{ error }}</p>
+        </article>
+        {% endif %}
+
+        {% if validation_warnings %}
+        <article class="warnings-card">
+            <p><strong>&#x26A0;&#xFE0F; Validation Warnings:</strong></p>
+            <ul>
+                {% for warning in validation_warnings %}
+                <li>{{ warning }}</li>
+                {% endfor %}
+            </ul>
+        </article>
+        {% endif %}
+
+        <article>
+            <header>
+                <h2>&#x1F9DF; Enter Your Survival Stats</h2>
+            </header>
+
+            <form method="POST" action="{{ url_for('predict') }}">
+                <div class="feature-row">
+                    <img src="{{ url_for('static', filename='images/icon_cardio.png') }}" alt="Cardio" class="feature-icon">
+                    <label for="fitness">
+                        Cardio / Fitness (1-10)
+                        <span class="label-hint">Can you outrun the horde?</span>
+                        <div class="range-group">
+                            <input type="range" id="fitness" name="fitness" min="1" max="10" value="{{ form_data.fitness if form_data else 5 }}">
+                            <span class="range-value" id="fitness-value">{{ form_data.fitness if form_data else 5 }}</span>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="feature-row">
+                    <img src="{{ url_for('static', filename='images/icon_resourcefulness.png') }}" alt="Resourcefulness" class="feature-icon">
+                    <label for="resourcefulness">
+                        Resourcefulness (1-10)
+                        <span class="label-hint">Can you hotwire a car or fix a fence?</span>
+                        <div class="range-group">
+                            <input type="range" id="resourcefulness" name="resourcefulness" min="1" max="10" value="{{ form_data.resourcefulness if form_data else 5 }}">
+                            <span class="range-value" id="resourcefulness-value">{{ form_data.resourcefulness if form_data else 5 }}</span>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="feature-row">
+                    <img src="{{ url_for('static', filename='images/icon_skills.png') }}" alt="Skills" class="feature-icon">
+                    <label for="specialist_skills">
+                        Specialist Skills (0-15)
+                        <span class="label-hint">First Aid, Carpentry, Mechanical&hellip; (count)</span>
+                        <input type="number" id="specialist_skills" name="specialist_skills" min="0" max="15" value="{{ form_data.specialist_skills if form_data else 3 }}">
+                    </label>
+                </div>
+
+                <div class="feature-row">
+                    <img src="{{ url_for('static', filename='images/icon_awareness.png') }}" alt="Awareness" class="feature-icon">
+                    <label for="awareness">
+                        Situational Awareness (0-10)
+                        <span class="label-hint">Are you distracted? High screen time = zombie snack.</span>
+                        <input type="number" id="awareness" name="awareness" min="0" max="10" step="0.5" value="{{ form_data.awareness if form_data else 5.0 }}">
+                    </label>
+                </div>
+
+                <div class="feature-row">
+                    <img src="{{ url_for('static', filename='images/icon_scouting.png') }}" alt="Scouting" class="feature-icon">
+                    <label for="scouting_freq">
+                        Scouting Frequency (0-7)
+                        <span class="label-hint">How often you risk leaving the bunker per week.</span>
+                        <input type="number" id="scouting_freq" name="scouting_freq" min="0" max="7" value="{{ form_data.scouting_freq if form_data else 3 }}">
+                    </label>
+                </div>
+
+                <div class="feature-row">
+                    <img src="{{ url_for('static', filename='images/icon_leadership.png') }}" alt="Leadership" class="feature-icon">
+                    <label for="leadership">
+                        Leadership / Trust (1-10)
+                        <span class="label-hint">Your ability to build and lead a team.</span>
+                        <div class="range-group">
+                            <input type="range" id="leadership" name="leadership" min="1" max="10" value="{{ form_data.leadership if form_data else 5 }}">
+                            <span class="range-value" id="leadership-value">{{ form_data.leadership if form_data else 5 }}</span>
+                        </div>
+                    </label>
+                </div>
+
+                <button type="submit">&#x1F52A; Calculate My Survival</button>
+            </form>
+        </article>
+
+        {% if prediction %}
+        <article class="prediction-result">
+            {% if ai_available %}
+            <button type="button"
+                    class="ai-sparkle-btn"
+                    id="ai-sparkle-btn"
+                    title="Request Radio Dispatch (AI Narrator)"
+                    aria-label="Request Radio Dispatch">
+                &#x1F4FB;
+            </button>
+            {% endif %}
+
+            {% set class_img_map = {'Apex Survivor': 'apex', 'Scavenger': 'scavenger', 'The Bait': 'bait', 'Zombie Snack': 'snack'} %}
+            <div class="prediction-header">
+                <img src="{{ url_for('static', filename='images/class_' + class_img_map.get(prediction.category, prediction.category|lower) + '.png') }}" alt="{{ prediction.category }}" class="prediction-class-img">
+                <div class="prediction-header-text">
+                    <div class="prediction-days">Survival Clock: <br><strong>{{ prediction.days }} days</strong></div>
+                </div>
+            </div>
+
+            <div class="explanation">
+                <h3>&#x1F52C; Why This Prediction?</h3>
+                <ul>
+                    {% for reason in reasons %}
+                        {% if reason.startswith('Model Analysis:') or reason.startswith('Timeline Prediction:') %}
+                            <li class="meta">{{ reason }}</li>
+                        {% elif reason.startswith('✓') or reason.startswith('⚠') or reason.startswith('→') or reason.startswith('🔬') %}
+                            <li class="header-line">{{ reason }}</li>
+                        {% else %}
+                            <li>{{ reason }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+
+            {% if ai_available %}
+            <div class="ai-narrator" id="ai-narrator" hidden>
+                <div class="ai-narrator-header">
+                    <span class="ai-narrator-title">&#x1F4FB; Radio Dispatch &mdash; Station Plumpton</span>
+                </div>
+                <div class="ai-narrator-body" id="ai-narrator-body">
+                    <span class="ai-narrator-loading">&#x1F4E1; Tuning frequency&hellip;</span>
+                </div>
+                <div class="ai-narrator-footer">&#x1F4E1; Powered by Gemma LLM (gemma-3n-e4b-it) via Gemini API</div>
+            </div>
+
+            <!-- Hidden data island for the JS to read prediction values -->
+            <script type="application/json" id="ai-prediction-data">
+                {
+                    "category": "{{ prediction.category }}",
+                    "days": {{ prediction.days }},
+                    "fitness": {{ form_data.fitness }},
+                    "resourcefulness": {{ form_data.resourcefulness }},
+                    "specialist_skills": {{ form_data.specialist_skills }},
+                    "awareness": {{ form_data.awareness }},
+                    "scouting_freq": {{ form_data.scouting_freq }},
+                    "leadership": {{ form_data.leadership }}
+                }
+            </script>
+            {% endif %}
+        </article>
+        {% endif %}
+
+        <nav class="nav-link">
+            <a href="{{ url_for('admin') }}">&#x1F9E0; Admin Dashboard &rarr;</a>
+        </nav>
+    </main>
+
+    <script>
+        // Live range slider values
+        const sliders = [
+            { input: 'fitness', display: 'fitness-value' },
+            { input: 'resourcefulness', display: 'resourcefulness-value' },
+            { input: 'leadership', display: 'leadership-value' }
+        ];
+
+        sliders.forEach(s => {
+            const input = document.getElementById(s.input);
+            const display = document.getElementById(s.display);
+            if (input && display) {
+                input.addEventListener('input', e => { display.textContent = e.target.value; });
+            }
+        });
+
+        // AI Narrator (Radio Dispatch) on-demand fetch
+        const aiBtn = document.getElementById('ai-sparkle-btn');
+        const aiNarrator = document.getElementById('ai-narrator');
+        const aiBody = document.getElementById('ai-narrator-body');
+        const aiDataEl = document.getElementById('ai-prediction-data');
+
+        if (aiBtn && aiNarrator && aiBody && aiDataEl) {
+            aiBtn.addEventListener('click', async () => {
+                if (aiBtn.disabled) return;
+                aiBtn.disabled = true;
+                aiBtn.classList.add('loading');
+                aiNarrator.hidden = false;
+                aiBody.innerHTML = '<span class="ai-narrator-loading">&#x1F4E1; Tuning frequency&hellip; stand by for dispatch.</span>';
+
+                let predictionData;
+                try {
+                    predictionData = JSON.parse(aiDataEl.textContent);
+                } catch (err) {
+                    aiBody.textContent = '� Radio silence. The station is down. Try again later.';
+                    return;
+                }
+
+                try {
+                    const res = await fetch('/ai_narrate', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(predictionData)
+                    });
+                    const data = await res.json();
+                    if (data.success && data.narrative) {
+                        aiBody.textContent = data.narrative;
+                        aiBtn.style.display = 'none';
+                    } else {
+                        aiBody.textContent = data.message || '� Radio silence. The station is down. Try again later.';
+                        aiBtn.disabled = false;
+                        aiBtn.classList.remove('loading');
+                    }
+                } catch (err) {
+                    aiBody.textContent = '� Radio silence. The station is down. Try again later.';
+                    aiBtn.disabled = false;
+                    aiBtn.classList.remove('loading');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

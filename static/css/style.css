@@ -1,0 +1,1131 @@
+/* ========================================
+   Zombie Survival Simulator — Custom Styles
+   Overrides for Pico CSS + brand styles
+   ======================================== */
+
+/* ---- Brand colour palette ---- */
+:root {
+    --z-green:        #4ade80;
+    --z-green-dim:    #22c55e;
+    --z-green-glow:   rgba(74, 222, 128, 0.25);
+    --z-red:          #ef4444;
+    --z-red-dim:      #dc2626;
+    --z-amber:        #f59e0b;
+    --z-skull:        #fbbf24;
+    --z-bg:           #0f1117;
+    --z-surface:      #181b23;
+    --z-surface-alt:  #1e2230;
+    --z-border:       rgba(74, 222, 128, 0.15);
+    --z-border-bright:rgba(74, 222, 128, 0.35);
+    --z-text:         #e4e4e7;
+    --z-text-dim:     #9ca3af;
+    --z-text-dark:    #6b7280;
+
+    --pico-font-family-sans-serif: 'Inter', system-ui, sans-serif;
+    --pico-primary: var(--z-green);
+    --pico-primary-hover: var(--z-green-dim);
+    --pico-primary-focus: var(--z-green-glow);
+    --pico-primary-inverse: #0f1117;
+    --pico-background-color: var(--z-bg);
+    --pico-color: var(--z-text);
+    --pico-card-background-color: var(--z-surface);
+    --pico-card-border-color: var(--z-border);
+    --pico-form-element-background-color: var(--z-surface-alt);
+    --pico-form-element-border-color: var(--z-border);
+    --pico-form-element-active-border-color: var(--z-green);
+    --pico-form-element-focus-color: var(--z-green-glow);
+    --pico-muted-color: var(--z-text-dim);
+    --pico-border-radius: 0.75rem;
+}
+
+body {
+    background: var(--z-bg);
+    min-height: 100vh;
+}
+
+h1, h4 {
+    font-family: 'Inter', sans-serif;
+    color: var(--z-text);
+}
+
+h2, h3 {
+    font-family: 'Road Rage', cursive;
+    color: var(--z-text);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+}
+
+/* ========================================
+   Hero Image
+   ======================================== */
+.hero-image {
+    margin: 0 -1rem 2rem;
+    text-align: center;
+}
+
+.hero-image img {
+    width: 100%;
+    max-width: 720px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 0 0 1.25rem 1.25rem;
+}
+
+/* ========================================
+   Hero Title
+   ======================================== */
+.hero-title {
+    font-family: 'Creepster', cursive;
+    text-align: center;
+    font-size: clamp(2.8rem, 9vw, 4.5rem);
+    font-weight: 400;
+    margin: 1.5rem 0 0.25rem;
+    line-height: 1.05;
+    color: var(--z-green);
+    text-shadow: 0 0 40px rgba(74, 222, 128, 0.3), 0 0 80px rgba(74, 222, 128, 0.1);
+    letter-spacing: 0.02em;
+}
+
+.hero-title-small {
+    font-family: 'Road Rage', cursive;
+    text-align: center;
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 400;
+    margin: 1.5rem 0 0.25rem;
+    color: var(--z-green);
+    text-shadow: 0 0 30px rgba(74, 222, 128, 0.25);
+    letter-spacing: 0.02em;
+}
+
+.hero-subtitle {
+    text-align: center;
+    font-family: 'Roboto Mono', monospace;
+    color: var(--z-text-dim);
+    font-size: 0.85rem;
+    margin-bottom: 2rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.subtitle {
+    text-align: center;
+    font-family: 'Roboto Mono', monospace;
+    color: var(--z-text-dim);
+    font-size: 0.85rem;
+    margin-bottom: 2rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+/* ========================================
+   Glassmorphism Cards (article overrides)
+   ======================================== */
+article {
+    background: var(--z-surface);
+    backdrop-filter: blur(12px);
+    border-radius: 1.25rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.03);
+    border: 1px solid var(--z-border);
+}
+
+/* ========================================
+   Disclaimer
+   ======================================== */
+.disclaimer {
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.08), rgba(74, 222, 128, 0.15));
+    border: 1px solid var(--z-border-bright);
+    padding: 1.1rem 1.4rem;
+    border-radius: 0.9rem;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    color: var(--z-text-dim);
+}
+
+.disclaimer strong {
+    color: var(--z-green);
+}
+
+/* ========================================
+   Range Slider Group
+   ======================================== */
+.range-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.range-group input[type="range"] {
+    flex: 1;
+    margin-bottom: 0;
+    accent-color: var(--z-green);
+}
+
+.range-value {
+    min-width: 2.5rem;
+    text-align: center;
+    font-weight: 700;
+    color: var(--z-green);
+    font-size: 1.15rem;
+    font-family: 'Roboto Mono', monospace;
+}
+
+/* ========================================
+   Labels
+   ======================================== */
+label {
+    color: var(--z-text);
+    font-weight: 500;
+}
+
+.label-hint {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--z-text-dark);
+    font-weight: 400;
+    margin-top: 0.15rem;
+}
+
+/* ========================================
+   Feature row with icon
+   ======================================== */
+.feature-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    margin-bottom: 1.25rem;
+}
+
+.feature-icon {
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+    border-radius: 0.6rem;
+    margin-top: 0.15rem;
+}
+
+.feature-row label {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+/* ========================================
+   Form inputs
+   ======================================== */
+input[type="number"] {
+    background: var(--z-surface-alt);
+    border: 1px solid var(--z-border);
+    color: var(--z-text);
+}
+
+input[type="number"]:focus {
+    border-color: var(--z-green);
+    box-shadow: 0 0 0 3px var(--z-green-glow);
+}
+
+/* ========================================
+   Submit Button (gradient)
+   ======================================== */
+button[type="submit"],
+button.retrain-btn {
+    background: linear-gradient(135deg, var(--z-green), var(--z-green-dim));
+    border: none;
+    color: #0f1117;
+    font-weight: 700;
+    box-shadow: 0 4px 20px rgba(74, 222, 128, 0.3);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+button[type="submit"]:hover:not(:disabled),
+button.retrain-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, var(--z-green-dim), #16a34a);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(74, 222, 128, 0.45);
+}
+
+button[type="submit"] {
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
+}
+
+button.retrain-btn {
+    padding: 0.875rem 2rem;
+    display: block;
+    margin: 1rem auto 0;
+    width: auto;
+}
+
+/* ========================================
+   Prediction Result
+   ======================================== */
+.prediction-result {
+    position: relative;
+    border: 2px solid var(--z-border-bright);
+    box-shadow: 0 8px 40px rgba(74, 222, 128, 0.12);
+}
+
+.prediction-header {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.prediction-class-img {
+    width: 220px;
+    height: 220px;
+    flex-shrink: 0;
+    border-radius: 1rem;
+}
+
+.prediction-header-text {
+    flex: 1;
+}
+
+.prediction-category {
+    font-family: 'Creepster', cursive;
+    font-size: clamp(2rem, 6vw, 2.8rem);
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.02em;
+}
+
+.prediction-category.apex      { color: var(--z-green); text-shadow: 0 0 30px rgba(74,222,128,0.35); }
+.prediction-category.scavenger  { color: var(--z-amber); text-shadow: 0 0 30px rgba(245,158,11,0.3); }
+.prediction-category.bait       { color: #fb923c; text-shadow: 0 0 30px rgba(251,146,60,0.3); }
+.prediction-category.snack      { color: var(--z-red); text-shadow: 0 0 30px rgba(239,68,68,0.35); }
+
+.prediction-days {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.15rem;
+    color: var(--z-text-dim);
+    margin-bottom: 0;
+}
+
+.prediction-days strong {
+    color: var(--z-text);
+    font-size: 1.5rem;
+}
+
+.prediction-months {
+    text-align: center;
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    color: var(--z-text);
+}
+
+/* ---- Stat badges (inline) ---- */
+.stat-badge {
+    display: inline-block;
+    background: var(--z-surface-alt);
+    border: 1px solid var(--z-border);
+    border-radius: 0.4rem;
+    padding: 0.15rem 0.5rem;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--z-green);
+    margin-right: 0.25rem;
+}
+
+/* ---- Category tag (prediction) ---- */
+.category-tag {
+    display: inline-block;
+    padding: 0.3rem 1rem;
+    border-radius: 999px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.category-tag.apex     { background: rgba(74,222,128,0.15); color: var(--z-green); border: 1px solid rgba(74,222,128,0.3); }
+.category-tag.scavenger{ background: rgba(245,158,11,0.15); color: var(--z-amber); border: 1px solid rgba(245,158,11,0.3); }
+.category-tag.bait     { background: rgba(251,146,60,0.15); color: #fb923c; border: 1px solid rgba(251,146,60,0.3); }
+.category-tag.snack    { background: rgba(239,68,68,0.15); color: var(--z-red); border: 1px solid rgba(239,68,68,0.3); }
+
+.explanation {
+    background: linear-gradient(135deg, rgba(74, 222, 128, 0.05), rgba(74, 222, 128, 0.1));
+    padding: 1.75rem;
+    border-radius: 1rem;
+    border-left: 4px solid var(--z-green);
+}
+
+.explanation h3 {
+    text-align: center;
+    margin-bottom: 1.25rem;
+    font-size: 1.25rem;
+    color: var(--z-green);
+}
+
+.explanation ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.explanation li {
+    padding: 0.4rem 0;
+    line-height: 1.7;
+    color: var(--z-text);
+}
+
+.explanation .meta {
+    font-size: 0.88rem;
+    color: var(--z-text-dim);
+    font-family: 'Roboto Mono', monospace;
+}
+
+.explanation .header-line {
+    font-weight: 700;
+    margin-top: 1rem;
+    color: var(--z-text);
+    font-size: 0.95rem;
+}
+
+/* ========================================
+   Stats Grid (Admin)
+   ======================================== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.stat-box {
+    background: var(--z-surface-alt);
+    padding: 1.25rem;
+    border-radius: 1rem;
+    border: 1px solid var(--z-border);
+    text-align: center;
+}
+
+.stat-label {
+    color: var(--z-text-dark);
+    font-size: 0.82rem;
+    margin-bottom: 0.5rem;
+    font-family: 'Roboto Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.stat-value {
+    font-family: 'Roboto Mono', monospace;
+    color: var(--z-green);
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+}
+
+.stat-unit {
+    color: var(--z-text);
+    font-size: 0.95rem;
+}
+
+/* ========================================
+   Model Architecture Display
+   ======================================== */
+.model-arch {
+    background: var(--z-surface-alt);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--z-border);
+}
+
+.model-arch h3 {
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+    color: var(--z-text);
+}
+
+.arch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+}
+
+.arch-stat-label {
+    color: var(--z-text-dark);
+    font-size: 0.82rem;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.arch-stat-value {
+    color: var(--z-green);
+    font-weight: 700;
+    font-size: 1.2rem;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.info-box {
+    margin-top: 1rem;
+    padding: 0.85rem 1rem;
+    background: var(--z-surface-alt);
+    border: 1px solid var(--z-border);
+    border-radius: 0.6rem;
+    font-size: 0.9rem;
+    color: var(--z-text-dim);
+}
+
+.info-box strong {
+    color: var(--z-green);
+}
+
+.info-box code {
+    color: var(--z-green);
+    background: rgba(74, 222, 128, 0.1);
+    padding: 0.1rem 0.35rem;
+    border-radius: 0.25rem;
+    font-size: 0.85em;
+}
+
+/* ========================================
+   Model Performance Metrics
+   ======================================== */
+.model-metrics {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .model-metrics {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.metric-card {
+    background: var(--z-surface-alt);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    border-left: 4px solid var(--z-green);
+}
+
+.metric-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+    color: var(--z-text);
+}
+
+.metric-value {
+    font-family: 'Roboto Mono', monospace;
+    font-size: clamp(2rem, 6vw, 2.5rem);
+    font-weight: 700;
+    color: var(--z-green);
+    margin-bottom: 0.5rem;
+}
+
+.metric-note {
+    color: var(--z-text-dark);
+    font-size: 0.82rem;
+    font-style: italic;
+    margin-bottom: 1rem;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.warning-box {
+    background: rgba(239, 68, 68, 0.08);
+    border-left: 4px solid var(--z-red);
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--z-text-dim);
+}
+
+.warning-box strong {
+    color: var(--z-red);
+}
+
+/* ========================================
+   Bar Chart (Feature Importance)
+   ======================================== */
+.bar-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.bar-item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+}
+
+@media (min-width: 640px) {
+    .bar-item {
+        grid-template-columns: 180px 1fr;
+        gap: 1rem;
+        align-items: center;
+    }
+}
+
+.bar-label {
+    color: var(--z-text);
+    font-size: 0.88rem;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.bar-track {
+    background: rgba(74, 222, 128, 0.08);
+    border-radius: 0.75rem;
+    height: 1.75rem;
+    overflow: hidden;
+    border: 1px solid var(--z-border);
+}
+
+.bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--z-green), var(--z-green-dim));
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 0.75rem;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 12px rgba(74, 222, 128, 0.2);
+}
+
+.bar-value {
+    color: #0f1117;
+    font-size: 0.82rem;
+    font-weight: 700;
+    font-family: 'Roboto Mono', monospace;
+}
+
+/* ========================================
+   Probability Bars
+   ======================================== */
+.prob-item {
+    display: grid;
+    grid-template-columns: 130px 1fr 55px;
+    gap: 0.75rem;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.prob-track {
+    background: rgba(74, 222, 128, 0.08);
+    border-radius: 0.75rem;
+    height: 1.5rem;
+    overflow: hidden;
+    border: 1px solid var(--z-border);
+}
+
+.prob-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--z-green), var(--z-green-dim));
+    border-radius: 0.75rem;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 10px rgba(74, 222, 128, 0.15);
+}
+
+.prob-label {
+    color: var(--z-text);
+    font-size: 0.88rem;
+    font-weight: 500;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.prob-value {
+    text-align: right;
+    color: var(--z-green);
+    font-weight: 700;
+    font-family: 'Roboto Mono', monospace;
+}
+
+/* ========================================
+   Test Input Box
+   ======================================== */
+.test-input-box {
+    background: rgba(74, 222, 128, 0.06);
+    border: 1px solid var(--z-border);
+    padding: 1.25rem;
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ========================================
+   Chart Container (matplotlib images)
+   ======================================== */
+.chart-image-wrapper {
+    background: var(--z-surface-alt);
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--z-border);
+    overflow-x: auto;
+}
+
+.chart-image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.chart-image-wrapper.tree img {
+    min-width: 800px;
+}
+
+/* ========================================
+   Nav Link
+   ======================================== */
+.nav-link {
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem;
+}
+
+.nav-link a {
+    color: var(--z-green);
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.9rem;
+}
+
+.nav-link a:hover {
+    text-decoration: underline;
+    background: rgba(74,222,128,0.08);
+}
+
+/* ========================================
+   Container Sizing
+   ======================================== */
+main.container {
+    padding: 1rem;
+}
+
+main.container.narrow {
+    max-width: 720px;
+}
+
+@media (min-width: 768px) {
+    main.container {
+        padding: 2rem;
+    }
+}
+
+/* ========================================
+   Retrain Message
+   ======================================== */
+#retrain-message {
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: 500;
+    font-family: 'Roboto Mono', monospace;
+}
+
+/* ========================================
+   Validation Warnings
+   ======================================== */
+.warnings-card {
+    border-left: 4px solid var(--z-red);
+    background: rgba(239,68,68,0.08);
+}
+
+.warnings-card strong {
+    color: var(--z-red);
+}
+
+.warnings-card ul {
+    margin-left: 1.5rem;
+}
+
+/* ========================================
+   AI Narrator (Radio Dispatch)
+   ======================================== */
+.ai-sparkle-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(74,222,128,0.2), rgba(74,222,128,0.4));
+    border: 2px solid var(--z-border-bright);
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0 4px 16px rgba(74,222,128,0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    animation: radio-pulse 2.5s ease-in-out infinite;
+}
+
+.ai-sparkle-btn:hover:not(:disabled) {
+    transform: scale(1.15) rotate(10deg);
+    background: linear-gradient(135deg, rgba(74,222,128,0.4), rgba(74,222,128,0.6));
+    box-shadow: 0 6px 24px rgba(74,222,128,0.4);
+    animation: none;
+}
+
+.ai-sparkle-btn:disabled {
+    cursor: wait;
+    opacity: 0.7;
+}
+
+.ai-sparkle-btn.loading {
+    animation: ai-sparkle-spin 1.2s linear infinite;
+}
+
+@keyframes radio-pulse {
+    0%, 100% { box-shadow: 0 4px 16px rgba(74,222,128,0.2); transform: scale(1); }
+    50%      { box-shadow: 0 4px 24px rgba(74,222,128,0.45); transform: scale(1.05); }
+}
+
+@keyframes ai-sparkle-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+.ai-narrator {
+    margin-top: 1.75rem;
+    padding: 1.5rem 1.75rem;
+    background: linear-gradient(135deg, rgba(74,222,128,0.06), rgba(74,222,128,0.12));
+    border: 1.5px solid var(--z-border-bright);
+    border-radius: 1rem;
+    box-shadow: 0 4px 16px rgba(74,222,128,0.1);
+    animation: ai-narrator-fade-in 0.5s ease;
+}
+
+@keyframes ai-narrator-fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.ai-narrator-header {
+    margin-bottom: 0.6rem;
+}
+
+.ai-narrator-title {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--z-green);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.ai-narrator-body {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--z-text);
+    font-style: italic;
+}
+
+.ai-narrator-loading {
+    color: var(--z-text-dim);
+    font-style: italic;
+}
+
+.ai-narrator-footer {
+    margin-top: 1rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--z-border);
+    font-size: 0.78rem;
+    color: var(--z-text-dark);
+    text-align: right;
+    font-family: 'Roboto Mono', monospace;
+}
+
+/* Mobile tweaks */
+@media (max-width: 480px) {
+    .ai-sparkle-btn {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.25rem;
+        top: 0.75rem;
+        right: 0.75rem;
+    }
+}
+
+/* ========================================
+   Hybrid Admin Dashboard Sections
+   ======================================== */
+.hybrid-pipeline-card {
+    border: 1px solid var(--z-border-bright);
+    background: linear-gradient(135deg, rgba(74,222,128,0.04), rgba(74,222,128,0.08));
+}
+
+.hybrid-subtitle {
+    color: var(--z-text-dim);
+    margin-bottom: 1.25rem;
+}
+
+.pipeline-diagram {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+@media (min-width: 900px) {
+    .pipeline-diagram {
+        grid-template-columns: 1fr auto 1fr auto 1fr;
+    }
+}
+
+.pipeline-stage {
+    padding: 1.1rem;
+    border-radius: 1rem;
+    text-align: center;
+    border: 1px solid var(--z-border);
+    background: var(--z-surface-alt);
+}
+
+.stage-classical {
+    border-left: 4px solid var(--z-text-dark);
+}
+
+.stage-neural {
+    border-left: 4px solid var(--z-green);
+    background: linear-gradient(135deg, rgba(74,222,128,0.08), var(--z-surface-alt));
+}
+
+.stage-badge {
+    display: inline-block;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-family: 'Roboto Mono', monospace;
+    background: rgba(74,222,128,0.1);
+    color: var(--z-green);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.stage-icon {
+    font-size: 1.3rem;
+    margin-bottom: 0.2rem;
+}
+
+.stage-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--z-text);
+}
+
+.stage-family,
+.stage-lib,
+.stage-output {
+    font-size: 0.82rem;
+    color: var(--z-text-dark);
+    font-family: 'Roboto Mono', monospace;
+}
+
+.stage-output code {
+    color: var(--z-green);
+}
+
+.pipeline-arrow {
+    text-align: center;
+    font-size: 1.25rem;
+    color: var(--z-green);
+    font-weight: 700;
+}
+
+.stage-tag {
+    display: inline-block;
+    margin-right: 0.45rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 0.45rem;
+    font-size: 0.72rem;
+    font-family: 'Roboto Mono', monospace;
+    vertical-align: middle;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.stage-tag.classical {
+    background: rgba(107, 114, 128, 0.25);
+    color: var(--z-text-dim);
+}
+
+.stage-tag.neural {
+    background: rgba(74, 222, 128, 0.15);
+    color: var(--z-green);
+}
+
+.model-arch-neural {
+    border: 1px solid var(--z-border-bright);
+    background: linear-gradient(135deg, rgba(74,222,128,0.06), var(--z-surface-alt));
+}
+
+.arch-stat-text {
+    font-size: 0.95rem;
+    line-height: 1.3;
+}
+
+.status-ok {
+    color: var(--z-green);
+    font-weight: 700;
+}
+
+.status-warn {
+    color: var(--z-amber);
+    font-weight: 700;
+}
+
+.chain-demo-card {
+    border: 1px solid var(--z-border-bright);
+}
+
+.chain-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.chain-step {
+    border-radius: 0.8rem;
+    padding: 0.75rem 0.9rem;
+    background: var(--z-surface-alt);
+    border: 1px solid var(--z-border);
+}
+
+.chain-step-classical {
+    border-left: 3px solid var(--z-text-dark);
+}
+
+.chain-step-neural {
+    border-left: 3px solid var(--z-green);
+    background: linear-gradient(135deg, rgba(74,222,128,0.06), var(--z-surface-alt));
+}
+
+.chain-step-label {
+    font-size: 0.82rem;
+    color: var(--z-text-dark);
+    margin-bottom: 0.25rem;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.chain-step-content {
+    color: var(--z-text);
+    line-height: 1.55;
+}
+
+.chain-step-big {
+    font-size: 1.05rem;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.chain-arrow-down {
+    text-align: center;
+    color: var(--z-green);
+    font-weight: 700;
+}
+
+.chain-arrow-label {
+    font-size: 0.78rem;
+    color: var(--z-text-dark);
+    font-family: 'Roboto Mono', monospace;
+}
+
+.chain-run-btn {
+    margin-top: 1rem;
+}
+
+.comparison-table-wrapper {
+    overflow-x: auto;
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    background: var(--z-surface-alt);
+    border-radius: 0.7rem;
+    overflow: hidden;
+}
+
+.comparison-table th,
+.comparison-table td {
+    padding: 0.7rem 0.65rem;
+    border-bottom: 1px solid var(--z-border);
+    text-align: left;
+    color: var(--z-text);
+}
+
+.comparison-table thead th {
+    background: rgba(74, 222, 128, 0.06);
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+}
+
+.comparison-table .col-classical {
+    color: var(--z-text-dim);
+}
+
+.comparison-table .col-neural {
+    color: var(--z-green);
+}
+
+.comparison-table code {
+    color: var(--z-green);
+    background: rgba(74, 222, 128, 0.1);
+    padding: 0.1rem 0.3rem;
+    border-radius: 0.2rem;
+    font-size: 0.85em;
+}
+
+.prompt-details {
+    margin-top: 0.9rem;
+}
+
+.prompt-details summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--z-green);
+    font-family: 'Roboto Mono', monospace;
+}
+
+.prompt-preview {
+    margin-top: 0.8rem;
+    max-height: 320px;
+    overflow: auto;
+    padding: 1rem;
+    border-radius: 0.7rem;
+    background: rgba(0, 0, 0, 0.5);
+    color: var(--z-green);
+    font-size: 0.8rem;
+    line-height: 1.5;
+    font-family: 'Roboto Mono', monospace;
+    border: 1px solid var(--z-border);
+}
+
+/* ========================================
+   Scanline overlay (subtle CRT effect)
+   ======================================== */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 9999;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.015) 2px,
+        rgba(0, 0, 0, 0.015) 4px
+    );
+}
